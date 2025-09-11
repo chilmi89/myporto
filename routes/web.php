@@ -1,18 +1,35 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+// Route Home biasa (tanpa proteksi)
+Route::get('/home', [HomeController::class, 'index']);
+
+// Login routes
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+Route::get('/dashboard', [SuperAdminController::class, 'index'])
+    ->name('dashboard')->middleware(['auth'])
+    ;
+
+
+
+Route::middleware(['auth', 'superadmin'])->group(function () {
+    Route::get('/role-permission', [SuperAdminController::class, 'index'])->name('role.permission.index');
+
+    Route::post('/role-permission/role', [SuperAdminController::class, 'createRole'])->name('role.create');
+    Route::post('/role-permission/permission', [SuperAdminController::class, 'createPermission'])->name('permission.create');
+
+    Route::post('/role-permission/assign', [SuperAdminController::class, 'givePermissionToRole'])->name('role.assign.permission');
+    Route::post('/role-permission/revoke', [SuperAdminController::class, 'revokePermissionFromRole'])->name('role.revoke.permission');
 });
