@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SuperAdmin\ManageRoleController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,8 +10,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route Home biasa (tanpa proteksi)
-Route::get('/home', [HomeController::class, 'index']);
+
 
 // Login routes
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -32,4 +32,10 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
 
     Route::post('/role-permission/assign', [SuperAdminController::class, 'givePermissionToRole'])->name('role.assign.permission');
     Route::post('/role-permission/revoke', [SuperAdminController::class, 'revokePermissionFromRole'])->name('role.revoke.permission');
+});
+
+
+
+Route::middleware(['auth', 'superadmin'])->prefix('superadmin')->name('superadmin.')->group(function () {
+    Route::resource('roles', ManageRoleController::class);
 });
