@@ -37,8 +37,8 @@ class ManageRoleController extends Controller
      */
     public function edit(string $id)
     {
-        $role = Role::findOrFail($id);
-        return view('SuperAdmin.EditRole', compact('role'));
+        // $role = Role::findOrFail($id);
+        // return view('SuperAdmin.DashboarRole', compact('role'));
     }
 
     /**
