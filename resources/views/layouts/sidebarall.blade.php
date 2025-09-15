@@ -1,21 +1,24 @@
+@php
+    $userRole = Auth::user()->getRoleNames()->first() ?? 'User';
+@endphp
+
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('superadmin.users.index') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SuperAdmin</div>
+        <div class="sidebar-brand-text mx-3">{{ $userRole }}</div>
     </a>
-
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item {{ request()->is('superadmin') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('superadmin.users.index') }}">
+        <a class="nav-link" href="">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard Super-Admin</span>
+            <span>Dashboard {{ $userRole }}</span>
         </a>
     </li>
 
@@ -23,20 +26,20 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Management Access
+        fitur
     </div>
 
     <!-- Nav Item - Roles & Permissions Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAccess" aria-expanded="true" aria-controls="collapseAccess">
             <i class="fas fa-fw fa-user-shield"></i>
-            <span>Roles & Permissions</span>
+            <span>fitur</span>
         </a>
         <div id="collapseAccess" class="collapse" aria-labelledby="headingAccess" data-bs-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Access Control:</h6>
-                <a class="collapse-item" href="{{ route('superadmin.roles.index') }}">Roles Management</a>
-                <a class="collapse-item" href="{{ route('superadmin.permissions.index') }}">Permissions Management</a>
+                <a class="collapse-item" href="">fitur</a>
+                <a class="collapse-item" href="">fitur</a>
             </div>
         </div>
     </li>
@@ -50,15 +53,15 @@
 
     <!-- Nav Item - Users -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('superadmin.users.index') }}">
+        <a class="nav-link" href="">
             <i class="fas fa-fw fa-users"></i>
-            <span>User Management</span>
+            <span>fitur</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('superadmin.permission-routes.index') }}">
+        <a class="nav-link" href="">
             <i class="fas fa-fw fa-arrow-right-to-bracket"></i>
-            <span>Role Redirect</span>
+            <span>fitur</span>
         </a>
     </li>
 

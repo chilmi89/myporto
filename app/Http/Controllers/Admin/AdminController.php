@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\SuperAdmin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Validated;
+use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 
-class ManagePermissionController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+    
     public function index()
     {
-        $akses_permission = Permission::all();
-        // dd($akses_permission);
-        return view('SuperAdmin.DashboardPermission', compact('akses_permission'));
+        return view('Admin.DashboardAdmin');
     }
 
     /**
@@ -31,17 +30,8 @@ class ManagePermissionController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-
     {
-        $request->validate([
-            'name' => 'required|unique:permissions,name',
-        ]);
-
-
-        Permission::create(['name' => $request->name]);
-
-
-        return redirect()->route('superadmin.permissions.index');
+        //
     }
 
     /**
@@ -65,17 +55,7 @@ class ManagePermissionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $akses_permission = Permission::findOrFail($id);
-
-
-        $akses_permission->update([
-            'name' => $request->name
-        ]);
-
-
-        // dd($akses_permission);
-
-        return redirect()->route('superadmin.permissions.index');
+        //
     }
 
     /**

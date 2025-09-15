@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RoleRedirect;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 
 class LoginController extends Controller
 {
@@ -16,7 +20,7 @@ class LoginController extends Controller
     {
         // Validasi input
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
+            'email'    => ['required', 'email'],
             'password' => ['required']
         ]);
 
@@ -26,16 +30,23 @@ class LoginController extends Controller
 
             $user = Auth::user();
 
-            // Redirect berdasarkan role
-            if ($user->hasRole('superadmin')) {
-                return redirect()->route('dashboard')->with('success', 'Selamat datang Super Admin!');
-            } elseif ($user->hasRole('admin')) {
-                return redirect()->route('admin.dashboard')->with('success', 'Selamat datang Admin!');
-            } elseif ($user->hasRole('reseller')) {
-                return redirect()->route('reseller.dashboard')->with('success', 'Selamat datang Reseller!');
-            } else {
-                return redirect()->route('home')->with('success', 'Login berhasil!');
+            // Ambil role pertama user
+            $role = $user->getRoleNames()->first();
+
+            if ($role) {
+                // Cari mapping di tabel role_redirects
+                $redirect = RoleRedirect::where('role_name', $role)->first();
+
+                if ($redirect && Route::has($redirect->route_name)) {
+                    return redirect()->route($redirect->route_name);
+                }
+
+                // Kalau tidak ada mapping atau route tidak ditemukan
+                abort(404, 'Halaman untuk role ini tidak ditemukan.');
             }
+
+            // Kalau user tidak punya role sama sekali
+            abort(403, 'Anda tidak memiliki akses ke halaman manapun.');
         }
 
         // Jika gagal
