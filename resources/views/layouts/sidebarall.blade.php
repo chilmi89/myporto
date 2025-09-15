@@ -18,7 +18,7 @@
     <li class="nav-item {{ request()->is('superadmin') ? 'active' : '' }}">
         <a class="nav-link" href="">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard {{ $userRole }}</span>
+            <span></span>
         </a>
     </li>
 

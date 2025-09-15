@@ -57,3 +57,11 @@ Route::middleware(['auth', 'dynamic.permission'])->prefix('admin')->name('admin.
     Route::resource('users', AdminController::class)->except(['index']);
 });
 
+
+Route::middleware(['auth', 'dynamic.permission'])->prefix('sellers')->name('sellers.')->group(function () {
+
+    Route::resource('sellers', SellerController::class);
+});
+
+
+
