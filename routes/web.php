@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
-
+use App\Http\Controllers\Dosen\DosenController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Seller\SellerController;
 use App\Http\Controllers\SuperAdmin\ManagePermissionController;
@@ -62,6 +62,15 @@ Route::middleware(['auth', 'dynamic.permission'])->prefix('sellers')->name('sell
 
     Route::resource('sellers', SellerController::class);
 });
+
+
+
+// route dosen
+Route::middleware(['auth', 'dynamic.permission'])->prefix('dosen')->name('dosen.')->group(function () {
+
+    Route::resource('dosen', DosenController::class);
+});
+
 
 
 
